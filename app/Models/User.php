@@ -22,4 +22,14 @@ class User extends Authenticatable {
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function owns() {
+
+        return $this->belongsToMany("\Bookie\Models\Car", "owned_by");
+    }
+
+    public function rents() {
+        
+        return $this->belongsToMany("\Bookie\Models\Car", "rented_by");
+    }
 }
