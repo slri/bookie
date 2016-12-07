@@ -17,16 +17,15 @@
 							<li class='dropdown btn-group'>
 								<a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>My Cars <i class="caret"></i></a>
 								<ul class='dropdown-menu'>
-									<li><a href='{{ "" }}'>Add</a></li>
+									<li><a href='{{ route("owned.add") }}'>Add</a></li>
 									<li class='divider'></li>
-									<li><a href='{{ "" }}'>Manage</a></li>
-									<li><a href='{{ "" }}'>Delete</a></li>
+									<li><a href='{{ route("owned.all") }}'>Manage</a></li>
 								</ul>
 							</li>
 
 							<li><a href='{{ "" }}'>My Settings</a></li>
 
-							<li><a href='{{ "" }}'>Logout</a></li>
+							<li><a href='{{ route("logout") }}'>Logout</a></li>
 
 						@else
 						<li><a href='{{ route("register") }}'>Register</a></li>

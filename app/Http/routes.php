@@ -43,3 +43,37 @@ Route::get("/logout", [
 	"as" => "logout",
 	"middleware" => "auth",
 ]);
+
+Route::get("/owned/add", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@getAddOwned",
+	"as" => "owned.add",
+	"middleware" => "auth",
+]);
+
+Route::post("/owned/add", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@postAddOwned",
+	"middleware" => "auth",
+]);
+
+Route::get("/owned", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@allOwned",
+	"as" => "owned.all",
+	"middleware" => "auth",
+]);
+
+Route::get("/owned/{id}", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@oneOwned",
+	"as" => "owned.one",
+	"middleware" => "auth",
+]);
+
+Route::get("/owned/delete/{id}", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@deleteOwned",
+	"as" => "owned.delete",
+	"middleware" => "auth",
+]);
+
+Route::delete("/owned/delete/{id}", [
+	"uses" => "\Bookie\Http\Controllers\OwnershipController@deleteOwned",
+	"middleware" => "auth",
+]);
