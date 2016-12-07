@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Bookie\User::class,
+            'model' => Bookie\Models\User::class,
         ],
 
         // 'users' => [

@@ -2,7 +2,7 @@
 
 namespace Bookie\Http\Controllers\Auth;
 
-use Bookie\User;
+use Bookie\Models\User;
 use Validator;
 use Bookie\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;

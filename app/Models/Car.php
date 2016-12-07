@@ -1,6 +1,6 @@
 <?php
 
-namespace Bookie;
+namespace Bookie\Models;
 
 class Car extends Model {
     /**

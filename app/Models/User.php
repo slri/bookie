@@ -1,6 +1,6 @@
 <?php
 
-namespace Bookie;
+namespace Bookie\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
