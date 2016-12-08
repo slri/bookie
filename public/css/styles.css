@@ -1,0 +1,33 @@
+.jumbotron-parent {
+	padding: 24px 0 !important;
+	background-color: #f8f8f8;
+	border: 1px solid #e7e7e7;
+}
+
+.jumbotron-parent h4 {
+	padding: 0 60px;
+}
+
+.jumbotron-child {
+	border: 0;
+	background-color: #fff;
+	margin: 12px 0 24px;
+}
+
+ul {
+	padding: 0;
+}
+
+li.jumbotron {
+	list-style-type: none;
+}
+
+.jumbotron,
+.navbar {
+	border-radius: 0 !important;
+}
+
+.navbar {
+	border-right: 0;
+	border-left: 0;
+}

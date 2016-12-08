@@ -3,7 +3,7 @@
 @section("content")
 				<form class='form-horizontal' role='form' method='post' action='{{ route("owned.add") }}'>
 					<legend>Add a car for rental</legend>
-					<div class="form-group">
+					<div class='form-group{{ $errors->has("car") ? " has-error" : "" }}'>
 						<label class="col-md-4 control-label" for="car">Car:</label>
 						<div class="col-md-5">
 							<select class="form-control" id="car" name="car">
@@ -14,6 +14,9 @@
 									@endforeach
 								@endif
 							</select>
+							@if($errors->has("car"))
+								<span class='help-block'>{{ $errors->first("car") }}</span>
+							@endif
 						</div>
 					</div>
 

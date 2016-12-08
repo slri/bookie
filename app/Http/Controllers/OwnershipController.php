@@ -9,10 +9,10 @@ use Bookie\Http\Controllers\Controller;
 
 class OwnershipController extends Controller {
 
-	protected function validator(array $data) {
-        return Validator::make($data, [
-            'car' => 'required|exists:cars',
-        ]);
+	protected function rules() {
+        return [
+            'car' => 'required|exists:cars,id',
+        ];
     }
 
 	public function getAdd(Request $request) {
@@ -26,19 +26,15 @@ class OwnershipController extends Controller {
 	}
 
 	public function postAdd(Request $request) {
-		$validator = $this->validator($request->all());
+		$this->validate($request, $this->rules());
 
-		if($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
-
-		Auth::user()->owns()->attach($request->input("id"));
+		Auth::user()->owns()->attach($request->input("car"));
 
 		if($request->wantsJson()) {
-			return response(trans("success.add"), 200);
+			return response(trans("ownership.success.add"), 200);
 		}
 
-		return redirect()->route("owned.all")->withInfo(trans("success.add"));
+		return redirect()->route("owned.all")->withInfo(trans("ownership.success.add"));
 	}
 
 	public function all(Request $request) {
@@ -52,14 +48,14 @@ class OwnershipController extends Controller {
 	}
 
 	public function one($id, Request $request) {
-		$owns = Auth::user()->owns()->find($id);
+		$owns = Auth::user()->owns()->find($id)->first();
 
 		if(!$owns) {
 			if($request->wantsJson()) {
-				return response(trans("owner.not"), 404);
+				return response(trans("ownership.owner.not"), 404);
 			}
 
-			return redirect()->route("errors.404")->withInfo(trans("owner.not"));
+			return redirect()->route("errors.404")->withInfo(trans("ownership.owner.not"));
 		}
 
 		return view("ownership.details", ["car" => $owns]);
@@ -70,16 +66,17 @@ class OwnershipController extends Controller {
 
 		if(!$owns) {
 			if($request->wantsJson()) {
-				return response(trans("owner.not"), 404);
+				return response(trans("ownership.owner.not"), 404);
 			}
 
-			return redirect()->route("errors.404")->withInfo(trans("owner.not"));
+			return redirect()->route("errors.404")->withInfo(trans("ownership.owner.not"));
 		}
+		Auth::user()->owns()->detach($id);
 
 		if($request->wantsJson()) {
-			return response(trans("success.delete"), 200);
+			return response(trans("ownership.success.delete"), 200);
 		}
 
-		return redirect()->route("owned.all")->withInfo(trans("success.delete"));
+		return redirect()->route("owned.all")->withInfo(trans("ownership.success.delete"));
 	}
 }

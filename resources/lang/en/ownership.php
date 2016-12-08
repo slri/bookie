@@ -16,7 +16,7 @@ return [
     	"not" => "You don't own this car.",
     ],
     "success" => [
-    	"add" => "Successfully added."
+    	"add" => "Successfully added.",
     	"delete" => "Successfully deleted.",
     ],
 

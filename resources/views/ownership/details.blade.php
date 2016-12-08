@@ -2,13 +2,14 @@
 
 @section("content")
 				@if(!empty($car))
-					<h2>{{ $car->manufacturer . " " . $car->model }}</h2>
-					<p>{{ $car->description }}</p>
-					<p>Owned by <a href='{{ route("user", ["id" => $car->owner->id]) }}'></a></p>
+				{{ var_dump($car) }}
+					<h2>{{ $car->original["manufacturer"] . " " . $car->original["model"] }}</h2>
+					<p>{{ $car->original["description"] }}</p>
+					<p>Owned by <a href='{{ "" }}'></a></p>
 
 					<hr>
 
-					<h3>About {{ $car->owner->name }}:</h3>
+					<h3>About owner:</h3>
 					<p>...</p>
 				@endif
 @stop
