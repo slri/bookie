@@ -13,6 +13,8 @@ class CreateOwnedBy extends Migration
     public function up()
     {
         Schema::create('owned_by', function (Blueprint $table) {
+            $table->increments('id');
+
             $table->integer('user_id')->unsigned();
             $table->integer('car_id')->unsigned();
 
@@ -22,8 +24,6 @@ class CreateOwnedBy extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
-
-            $table->primary(['user_id', 'car_id']);
         });
     }
 
