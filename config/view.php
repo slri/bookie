@@ -2,6 +2,9 @@
 
 return [
 
+    // Default pagination value
+    'itemsPerPage' => 15,
+
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths

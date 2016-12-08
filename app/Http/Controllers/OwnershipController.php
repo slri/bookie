@@ -2,7 +2,9 @@
 
 namespace Bookie\Http\Controllers;
 
+use Auth;
 use Bookie\Models\Car;
+use Illuminate\Http\Request;
 use Bookie\Http\Controllers\Controller;
 
 class OwnershipController extends Controller {
@@ -13,7 +15,7 @@ class OwnershipController extends Controller {
         ]);
     }
 
-	public function getAddOwned($request) {
+	public function getAdd(Request $request) {
 		$cars = Car::all();
 
 		if($request->wantsJson()) {
@@ -23,7 +25,7 @@ class OwnershipController extends Controller {
 		return view("ownership.add", ["cars" => $cars]);
 	}
 
-	public function postAddOwned($request) {
+	public function postAdd(Request $request) {
 		$validator = $this->validator($request->all());
 
 		if($validator->fails()) {
@@ -33,14 +35,14 @@ class OwnershipController extends Controller {
 		Auth::user()->owns()->attach($request->input("id"));
 
 		if($request->wantsJson()) {
-			return response("Successfully added.", 200);
+			return response(trans("success.add"), 200);
 		}
 
-		return redirect()->route("owned.all")->withInfo("Successfully added.");
+		return redirect()->route("owned.all")->withInfo(trans("success.add"));
 	}
 
-	public function allOwned($request) {
-		$owns = Auth::user()->owns;
+	public function all(Request $request) {
+		$owns = Auth::user()->owns()->paginate(config("view.itemsPerPage"));
 
 		if($request->wantsJson()) {
 			return response($owns, 200);
@@ -49,35 +51,35 @@ class OwnershipController extends Controller {
 		return view("ownership.list", ["cars" => $owns]);
 	}
 
-	public function oneOwned($id, $request) {
+	public function one($id, Request $request) {
 		$owns = Auth::user()->owns()->find($id);
 
 		if(!$owns) {
 			if($request->wantsJson()) {
-				return response("You don't own this car.", 404);
+				return response(trans("owner.not"), 404);
 			}
 
-			return redirect()->route("errors.404")->withInfo("You don't own this car.");
+			return redirect()->route("errors.404")->withInfo(trans("owner.not"));
 		}
 
 		return view("ownership.details", ["car" => $owns]);
 	}
 
-	public function deleteOwned($id, $request) {
+	public function delete($id, Request $request) {
 		$owns = Auth::user()->owns()->find($id);
 
 		if(!$owns) {
 			if($request->wantsJson()) {
-				return response("You don't own this car.", 404);
+				return response(trans("owner.not"), 404);
 			}
 
-			return redirect()->route("errors.404")->withInfo("You don't own this car.");
+			return redirect()->route("errors.404")->withInfo(trans("owner.not"));
 		}
 
 		if($request->wantsJson()) {
-			return response("Successfully deleted.", 200);
+			return response(trans("success.delete"), 200);
 		}
 
-		return redirect()->route("owned.all")->withInfo("Successfully deleted.");
+		return redirect()->route("owned.all")->withInfo(trans("success.delete"));
 	}
 }
