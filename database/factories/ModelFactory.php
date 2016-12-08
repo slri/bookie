@@ -11,11 +11,18 @@
 |
 */
 
-$factory->define(Bookie\User::class, function (Faker\Generator $faker) {
+$factory->define(Bookie\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'email' => $faker->unique()->safeEmail,
+        'password' => bcrypt('secret'),
+    ];
+});
+
+$factory->define(Bookie\Models\Car::class, function (Faker\Generator $faker) {
+    return [
+        'manufacturer' => $faker->company,
+        'model' => $faker->bothify($faker->word() . ' ??#'),
+        'description' => $faker->paragraph(),
     ];
 });
