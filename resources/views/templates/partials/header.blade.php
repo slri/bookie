@@ -7,6 +7,7 @@
 
 					<ul class='nav navbar-nav'>
 						<li><a href='{{ route("home") }}'>Home</a></li>
+						<li><a href='{{ route("rentable") }}'>Rent a Car</a></li>
 					</ul>
 
 					<ul class='nav navbar-nav navbar-right'>
@@ -20,6 +21,12 @@
 									<li><a href='{{ route("owned.add") }}'>Add</a></li>
 									<li class='divider'></li>
 									<li><a href='{{ route("owned.all") }}'>Manage</a></li>
+								</ul>
+							</li>
+							<li class='dropdown btn-group'>
+								<a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>My Rentals <i class="caret"></i></a>
+								<ul class='dropdown-menu'>
+									<li><a href='{{ route("rented.all") }}'>Manage</a></li>
 								</ul>
 							</li>
 

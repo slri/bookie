@@ -77,3 +77,32 @@ Route::delete("/owned/delete/{id}", [
 	"uses" => "\Bookie\Http\Controllers\OwnershipController@delete",
 	"middleware" => "auth",
 ]);
+
+Route::get("/rent", [
+	"uses" => "\Bookie\Http\Controllers\RentalController@getAdd",
+	"as" => "rentable",
+	"middleware" => "auth",
+]);
+
+Route::get("/rent/{id}", [
+	"uses" => "\Bookie\Http\Controllers\RentalController@postAdd",
+	"as" => "rent",
+	"middleware" => "auth",
+]);
+
+Route::get("/rented", [
+	"uses" => "\Bookie\Http\Controllers\RentalController@all",
+	"as" => "rented.all",
+	"middleware" => "auth",
+]);
+
+Route::get("/rented/cancel/{id}", [
+	"uses" => "\Bookie\Http\Controllers\RentalController@delete",
+	"as" => "rented.delete",
+	"middleware" => "auth",
+]);
+
+Route::delete("/rented/cancel/{id}", [
+	"uses" => "\Bookie\Http\Controllers\RentalController@delete",
+	"middleware" => "auth",
+]);
