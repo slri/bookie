@@ -23,13 +23,13 @@ class User extends Authenticatable {
         'password', 'remember_token',
     ];
 
-    public function owns() {
+    public function cars() {
 
-        return $this->belongsToMany("\Bookie\Models\Car", "owned_by");
+        return $this->hasMany("\Bookie\Models\Car");
     }
 
-    public function rents() {
+    public function rentals() {
         
-        return $this->belongsToMany("\Bookie\Models\Car", "rented_by");
+        return $this->hasMany("\Bookie\Models\Rental");
     }
 }
