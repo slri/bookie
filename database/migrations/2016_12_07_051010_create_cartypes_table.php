@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarsTable extends Migration
+class CreateCartypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('cartypes', function (Blueprint $table) {
             $table->increments('id');
             
             $table->string('manufacturer');
@@ -31,6 +31,6 @@ class CreateCarsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cars');
+        Schema::drop('cartypes');
     }
 }

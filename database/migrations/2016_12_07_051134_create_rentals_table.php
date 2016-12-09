@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOwnedBy extends Migration
+class CreateRentalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateOwnedBy extends Migration
      */
     public function up()
     {
-        Schema::create('owned_by', function (Blueprint $table) {
+        Schema::create('rentals', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();
@@ -34,6 +34,6 @@ class CreateOwnedBy extends Migration
      */
     public function down()
     {
-        Schema::drop('owned_by');
+        Schema::drop('rentals');
     }
 }
