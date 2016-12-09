@@ -1,14 +1,15 @@
 @extends("templates.default")
 
 @section("content")
-				@if(!empty($cars))
+				@if(!empty($rentals))
 					<ul>
-						@foreach($cars as $car)
+
+						@foreach($rentals as $rental)
 							<li class="jumbotron jumbotron-parent clearfix">
-								<h4>{{ $car->manufacturer . " " . $car->model }}</h4>
-								<div class="jumbotron jumbotron-child">{{ $car->description }}</div>
+								<h4>{{ $rental->car->type->manufacturer . " " . $rental->car->type->model }}</h4>
+								<div class="jumbotron jumbotron-child">{{ $rental->car->type->description }}</div>
 								<div class="col-sm-2 col-sm-offset-8">
-									<a href='{{ route("rented.delete", ["id" => $car->id]) }}' class="btn btn-block btn-default"><i class="fa fa-close"></i></a>
+									<a href='{{ route("rented.delete", ["id" => $rental->id]) }}' class="btn btn-block btn-default"><i class="fa fa-close"></i></a>
 								</div>
 								<div class="col-sm-2">
 									<a href='{{ "" }}' class="btn btn-block btn-default"><i class="fa fa-angle-right"></i></a>
@@ -17,7 +18,7 @@
 						@endforeach
 					</ul>
 					<div class="text-center">
-						{{ $cars->links() }}
+						{{ $rentals->links() }}
 					</div>
 				@endif
 @stop

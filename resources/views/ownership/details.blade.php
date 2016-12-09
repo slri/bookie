@@ -2,9 +2,8 @@
 
 @section("content")
 				@if(!empty($car))
-				{{ var_dump($car) }}
-					<h2>{{ $car->original["manufacturer"] . " " . $car->original["model"] }}</h2>
-					<p>{{ $car->original["description"] }}</p>
+					<h2>{{ $car->type->manufacturer . " " . $car->type->model }}</h2>
+					<p>{{ $car->type->description }}</p>
 					<p>Owned by <a href='{{ "" }}'></a></p>
 
 					<hr>

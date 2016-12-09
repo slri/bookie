@@ -5,8 +5,8 @@
 					<ul>
 						@foreach($cars as $car)
 							<li class="jumbotron jumbotron-parent clearfix">
-								<h4>{{ $car->manufacturer . " " . $car->model }}</h4>
-								<div class="jumbotron jumbotron-child">{{ $car->description }}</div>
+								<h4>{{ $car->type->manufacturer . " " . $car->type->model }}</h4>
+								<div class="jumbotron jumbotron-child">{{ $car->type->description }}</div>
 								<div class="col-sm-2 col-sm-offset-8">
 									<a href='{{ route("owned.delete", ["id" => $car->id]) }}' class="btn btn-block btn-default"><i class="fa fa-trash"></i></a>
 								</div>
