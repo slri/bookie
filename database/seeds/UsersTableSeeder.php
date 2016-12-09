@@ -11,17 +11,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Bookie\Models\User::class, 10)->create()->each(function($user) {
-        	$user->owns()->attach(range(1, 20));
-        	$user->rents()->attach(range(30, 35));
+        /*factory(Bookie\Models\User::class, 10)->create()->each(function($user) {
+        	$user->owns()->saveMany(Bookie\Models\CarType::find(range(1, 20)));
+        	$user->rents()->saveMany(Bookie\Models\CarType::find(range(30, 35)));
         });
 
         factory(Bookie\Models\User::class, 10)->create()->each(function($user) {
-        	$user->owns()->attach(range(13, 21));
+        	$user->owns()->saveMany(Bookie\Models\CarType::find(range(13, 21)));
         });
 
         factory(Bookie\Models\User::class, 10)->create()->each(function($user) {
-        	$user->rents()->attach(range(3, 5));
+        	$user->rents()->saveMany(Bookie\Models\CarType::find(range(3, 5)));
+        });*/
+        factory(Bookie\Models\User::class, 10)->create()->each(function($user) {
+            $user->cars()->create(["cartype_id" => 1]);
         });
     }
 }

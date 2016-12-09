@@ -19,7 +19,7 @@ $factory->define(Bookie\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Bookie\Models\Car::class, function (Faker\Generator $faker) {
+$factory->define(Bookie\Models\CarType::class, function (Faker\Generator $faker) {
     return [
         'manufacturer' => $faker->company,
         'model' => $faker->bothify($faker->word() . ' ??#'),
