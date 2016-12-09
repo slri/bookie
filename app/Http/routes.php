@@ -106,3 +106,8 @@ Route::delete("/rented/cancel/{id}", [
 	"uses" => "\Bookie\Http\Controllers\RentalController@delete",
 	"middleware" => "auth",
 ]);
+
+Route::get("/404", [
+	"uses" => function() { return view("errors.404"); },
+	"as" => "errors.404",
+]);
