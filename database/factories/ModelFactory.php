@@ -26,3 +26,17 @@ $factory->define(Bookie\Models\CarType::class, function (Faker\Generator $faker)
         'description' => $faker->paragraph(),
     ];
 });
+
+$factory->define(Bookie\Models\Car::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1, 30),
+        'cartype_id' => $faker->numberBetween(1, 40),
+    ];
+});
+
+$factory->define(Bookie\Models\Rental::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1, 30),
+        'car_id' => $faker->unique()->numberBetween(1, 40),
+    ];
+});
