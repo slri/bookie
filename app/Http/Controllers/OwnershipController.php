@@ -3,7 +3,7 @@
 namespace Bookie\Http\Controllers;
 
 use Auth;
-use Bookie\Models\Car;
+use Bookie\Models\CarType;
 use Illuminate\Http\Request;
 use Bookie\Http\Controllers\Controller;
 
@@ -11,24 +11,26 @@ class OwnershipController extends Controller {
 
 	protected function rules() {
         return [
-            'car' => 'required|exists:cars,id',
+            'car' => 'required|exists:cartypes,id',
         ];
     }
 
 	public function getAdd(Request $request) {
-		$cars = Car::all();
+		$cartypes = CarType::all();
 
 		if($request->wantsJson()) {
-			return response($cars, 200);
+			return response($cartypes, 200);
 		}
 
-		return view("ownership.add", ["cars" => $cars]);
+		return view("ownership.add", ["cars" => $cartypes]);
 	}
 
 	public function postAdd(Request $request) {
 		$this->validate($request, $this->rules());
 
-		Auth::user()->owns()->attach($request->input("car"));
+		Auth::user()->cars()->create([
+			"cartype_id" => $request->input("car")
+		]);
 
 		if($request->wantsJson()) {
 			return response(trans("ownership.success.add"), 200);
@@ -38,7 +40,7 @@ class OwnershipController extends Controller {
 	}
 
 	public function all(Request $request) {
-		$owns = Auth::user()->owns()->paginate(config("view.itemsPerPage"));
+		$owns = Auth::user()->cars()->with("type")->paginate(config("view.itemsPerPage"));
 
 		if($request->wantsJson()) {
 			return response($owns, 200);
@@ -48,7 +50,7 @@ class OwnershipController extends Controller {
 	}
 
 	public function one($id, Request $request) {
-		$owns = Auth::user()->owns()->find($id)->first();
+		$owns = Auth::user()->cars()->find($id);
 
 		if(!$owns) {
 			if($request->wantsJson()) {
@@ -57,12 +59,14 @@ class OwnershipController extends Controller {
 
 			return redirect()->route("errors.404")->withInfo(trans("ownership.owner.not"));
 		}
+
+		$owns->load(["user", "type"]);
 
 		return view("ownership.details", ["car" => $owns]);
 	}
 
 	public function delete($id, Request $request) {
-		$owns = Auth::user()->owns()->find($id);
+		$owns = Auth::user()->cars()->find($id);
 
 		if(!$owns) {
 			if($request->wantsJson()) {
@@ -71,7 +75,8 @@ class OwnershipController extends Controller {
 
 			return redirect()->route("errors.404")->withInfo(trans("ownership.owner.not"));
 		}
-		Auth::user()->owns()->detach($id);
+
+		$owns->delete();
 
 		if($request->wantsJson()) {
 			return response(trans("ownership.success.delete"), 200);

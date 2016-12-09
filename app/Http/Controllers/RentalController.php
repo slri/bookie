@@ -17,7 +17,7 @@ class RentalController extends Controller {
     }
 
 	public function getAdd(Request $request) {
-		$rentable = Car::whereHas("owner", function($q) {
+		$rentable = Car::with("type")->whereHas("user", function($q) {
 			$q->where("users.id", "!=", Auth::id());
 		})->paginate(config("view.itemsPerPage"));
 
@@ -25,11 +25,13 @@ class RentalController extends Controller {
 	}
 
 	public function postAdd($id, Request $request) {
-		if(!Car::findOrFail($id)) {
+		$car = Car::find($id);
+
+		if(!$car) {
 			return redirect()->route("errors.404");
 		}
 
-		Auth::user()->rents()->attach($id);
+		Auth::user()->rentals()->create(["car_id" => $car->id]);
 
 		if($request->wantsJson()) {
 			return response(trans("ownership.success.add"), 200);
@@ -39,19 +41,19 @@ class RentalController extends Controller {
 	}
 
 	public function all(Request $request) {
-		$rents = Auth::user()->rents()->paginate(config("view.itemsPerPage"));
+		$rentals = Auth::user()->rentals()->with("car.type")->paginate(config("view.itemsPerPage"));
 
 		if($request->wantsJson()) {
-			return response($rents, 200);
+			return response($rentals, 200);
 		}
 
-		return view("rental.list", ["cars" => $rents]);
+		return view("rental.list", ["rentals" => $rentals]);
 	}
 
 	public function delete($id, Request $request) {
-		$rents = Auth::user()->rents()->find($id);
+		$rental = Auth::user()->rentals()->find($id);
 
-		if(!$rents) {
+		if(!$rental) {
 			if($request->wantsJson()) {
 				return response(trans("ownership.owner.not"), 404);
 			}
@@ -59,7 +61,7 @@ class RentalController extends Controller {
 			return redirect()->route("errors.404")->withInfo(trans("ownership.owner.not"));
 		}
 
-		Auth::user()->rents()->detach($id);
+		$rental->delete();
 
 		if($request->wantsJson()) {
 			return response(trans("ownership.success.delete"), 200);
