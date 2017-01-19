@@ -5,9 +5,10 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6.29",
         "laravel/framework": "5.2.*",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "laravel-notification-channels/backport": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -157,7 +157,7 @@ return [
         Bookie\Providers\RouteServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
-
+        Illuminate\Notifications\NotificationServiceProvider::class,
     ],
 
     /*
